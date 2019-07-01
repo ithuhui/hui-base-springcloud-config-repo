@@ -27,8 +27,8 @@ mybatis:
 #    NFLoadBalancerRuleClassName: 配置负载均衡（全类名）
 server:
   port: 8080
-  servlet:
-    context-path: /product
+#  servlet:
+#    context-path: /product
 #设置熔断器默认配置项和单独设置某个方法的超时时间
 hystrix:
   command:
