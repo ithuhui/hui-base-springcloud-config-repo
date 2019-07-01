@@ -5,12 +5,12 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://127.0.0.1/springcloud_test?characterEncoding=utf-8&useSSL=false
-#  rabbitmq:
-#    host: localhost
-#    password: guest
-#    port: 5672
-#    username: guest
+    url: jdbc:mysql://127.0.0.1/hui_base_springcloud?characterEncoding=utf-8&useSSL=false
+  rabbitmq:
+    host: 192.168.89.4
+    password: admin
+    port: 5672
+    username: admin
   cloud:
     stream:
       bindings:
@@ -19,9 +19,32 @@ spring:
           content-type: application/json
 logging:
     level:
-      com.hui.springcloud.common.mapper: DEBUG
+      com.hui.base.springcloud.*.mapper: DEBUG
 mybatis:
-  mapper-locations: classpath:mapper/*/*.xml
+  mapper-locations: classpath:mapper/*.xml
 #PRODUCT-SERVER:
 #  ribbon:
 #    NFLoadBalancerRuleClassName: 配置负载均衡（全类名）
+server:
+  port: 8080
+  servlet:
+    context-path: /product
+#设置熔断器默认配置项和单独设置某个方法的超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+    hystrixTestX:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+fegin:
+  hystrix:
+    enabled: true
+#熔断监控面板前面有/application/XX,需要去掉 /application
+management:
+  context-path: /product
