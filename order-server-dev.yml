@@ -6,12 +6,31 @@ spring:
     username: root
     password: 123456
     url: jdbc:mysql://127.0.0.1/springcloud_test?characterEncoding=utf-8&useSSL=false
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
+  rabbitmq:
+    host: 192.168.89.4
+    port: 5672
+    username: admin
+    password: admin
 server:
   port: 8081
 env:
   dev
+#设置熔断器默认配置项和单独设置某个方法的超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+    hystrixTestX:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 2000
+fegin:
+  hystrix:
+    enabled: true
+#熔断监控面板前面有/application/XX,需要去掉 /application
+management:
+  context-path: /order
